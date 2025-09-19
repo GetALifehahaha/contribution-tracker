@@ -5,18 +5,26 @@ from django.contrib.auth.models import User
 # contribution, contributor
 # 
 class Contributor(models.Model):
-    first_name = models.CharField
-    last_name = models.CharField
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    leader = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="contributors"
+    )
+
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name
 
 
 class Contribution(models.Model):
     contributor = models.ForeignKey(
         Contributor,
         on_delete=models.CASCADE,
-        related_name="contributor"
+        related_name="contributions"
     )
 
     amount = models.IntegerField(default=8)
     date_of_contribution = models.DateField(auto_now_add=True)
-    date_paid = models.DateField()
+    date_paid = models.DateField(blank=True, null=True)
     is_paid = models.BooleanField(default=False)
