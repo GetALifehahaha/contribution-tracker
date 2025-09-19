@@ -39,6 +39,7 @@ class ContributionListCreate(generics.ListCreateAPIView):
         contributor = serializer.validated_data.get('contributor')
 
         # prevent multiple contributions per day
+        # if so, return
 
         # get the amount in the dictionary, then add it to the contributor balance
         contributor.balance += serializer.validated_data.get('amount')
