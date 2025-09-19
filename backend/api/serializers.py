@@ -9,5 +9,6 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         print(validated_data)
+        # hahaaha
         user = user.objects.create_user(**validated_data)
         return user
