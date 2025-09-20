@@ -33,11 +33,15 @@ class ContributionListCreate(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Contribution.objects.filter(contributor__leader=user)
+        # only show contributions per contributor
+        contributor_id = self.kwargs['pk']
+        return Contribution.objects.filter(contributor__leader=user, contributor_id=contributor_id)
     
     def perform_create(self, serializer):
+        contributor_id = self.kwargs['pk']
+
         # serializer.validated_data is a dictionary, with contributor and amount key
-        contributor = serializer.validated_data.get('contributor')
+        contributor =Contributor.objects.get(pk=contributor_id, contributor__leader=self.request.user)
 
         # prevent multiple contributions per day
         today = timezone.now().date()
@@ -48,7 +52,7 @@ class ContributionListCreate(generics.ListCreateAPIView):
         
 
         # get the amount in the dictionary, then add it to the contributor balance
-        contributor.balance += serializer.validated_data.get('amount')
+        contributor.balance += serializer.validated_data.get('amount', 0)
         contributor.save()
         
         serializer.save(contributor=contributor)
