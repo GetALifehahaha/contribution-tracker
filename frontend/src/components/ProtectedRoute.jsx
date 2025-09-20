@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {Navigate} from 'react-router-dom'
-import {jwtDecode} from 'jwt-decoder'
+import {jwtDecode} from 'jwt-decode'
 import api from '../api/api'
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../api/constants'
 
@@ -14,7 +14,7 @@ const ProtectedRoute = ({children}) => {
 
         try {
             // prepare and create a backend request for token
-            const res = await api.post('api/token/refresh', {
+            const res = await api.post('/api/token/refresh/', {
                 refresh: refreshToken,
             });
 
@@ -61,7 +61,7 @@ const ProtectedRoute = ({children}) => {
 
     // if isAuthorized, navigate to the children page
     // else, go to login page
-    return isAuthorized ? children : <Navigate to='login' />
+    return isAuthorized ? children : <Navigate to='/login' />
 }
 
 export default ProtectedRoute
