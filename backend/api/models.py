@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 class Contributor(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    balance = models.IntegerField(default=0)
     leader = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

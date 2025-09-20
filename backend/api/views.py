@@ -4,6 +4,7 @@ from django.utils import timezone
 from rest_framework import generics
 from .serializers import UserSerializer, ContributorSerializer, ContributionSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.exceptions import ValidationError
 from .models import Contributor, Contribution
 
 # Create your views here.
@@ -39,11 +40,17 @@ class ContributionListCreate(generics.ListCreateAPIView):
         contributor = serializer.validated_data.get('contributor')
 
         # prevent multiple contributions per day
-        # if so, return
+        today = timezone.now().date()
+        # check if the contributor already has its own contribution for today
+        if Contribution.objects.filter(contributor=contributor, date_of_contribution=today).exists():
+            # if so, stop the request and send a json file using 'details' key
+            raise ValidationError("A contribution is already prepared")
+        
 
         # get the amount in the dictionary, then add it to the contributor balance
         contributor.balance += serializer.validated_data.get('amount')
         contributor.save()
-        serializer.save()
+        
+        serializer.save(contributor=contributor)
 
 
