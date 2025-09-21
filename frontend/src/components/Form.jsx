@@ -48,7 +48,7 @@ const Form = ({route, method }) => {
   }
 
   return (
-    <form className='bg-white px-8 py-2 flex flex-col gap-4 min-w-[40vw] min-h-[80%]' onSubmit={handleSubmitRequest}>
+    <form className='bg-white px-8 py-2 flex flex-col gap-4 w-[50%] h-full' onSubmit={handleSubmitRequest}>
       <h1 className='mr-auto font-extrabold text-xl text-gray-700 mb-[10%]'>{title}</h1>
 
       <h3 className='mx-auto font-bold tracking-tighter text-4xl'>{welcomeMessage}</h3>
