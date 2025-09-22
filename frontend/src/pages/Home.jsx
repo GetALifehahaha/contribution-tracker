@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { FetchContributors } from '../services/ContributorsServices'
+import { FetchContributions } from '../services/ContributionsServices';
 import ContributorSection from '../components/ContributorSection';
 import AddContributorForm from '../components/AddContributorForm';
 import ContributionSection from '../components/ContributionSection';
@@ -10,6 +11,9 @@ const Home = () => {
 
   // set state variables
   const [contributors, setContributors] = useState([]);
+  const [contributions, setContributions] = useState([]);
+  const [contributorId, setContributorId] = useState(1);
+  
   const [isAddContributorFormShown, setIsAddContributorFormShown] = useState(false);
 
   // run the fetch function on render
@@ -24,13 +28,27 @@ const Home = () => {
     }
   }
 
+  const fetchContributionsFunc = async () => {
+    try {
+      const resp = await FetchContributions(contributorId);
+      setContributions(resp.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   useEffect(() => {
     fetchContributorsFunc();
+    fetchContributionsFunc();
   }, [])
 
   // 
   const handleContributorAdded = () => {
     fetchContributorsFunc();
+  }
+
+  const handleSetContributorId = (id) => {
+    setContributorId(id);
   }
 
   return (
@@ -40,7 +58,7 @@ const Home = () => {
           <ContributorSection contributors={contributors} />
           <AddContributorForm onContributorAdded={() => handleContributorAdded()}/>
       </div>
-      <ContributionSection />
+      <ContributionSection contributions={contributions} onContributorClick={(id) => handleSetContributorId(id)}/>
     </div>
   )
 }
