@@ -21,9 +21,9 @@ const ContributorSection = ({contributors}) => {
     )
 
     return (
-        <div className='px-8 py-4 bg-white rounded-sm flex flex-col gap-4'>
+        <div className='px-8 py-4 bg-white rounded-sm flex flex-col gap-4 min-h-[80vh] min-w-[15vw]'>
             <h1 className='font-semibold text-zinc-400 text-md'>Contributor Section</h1>
-            <hr className="border-t border-2 border-zinc-300 my-[5%]" />
+            <hr className="border-t border-2 border-zinc-300 my-[2vh]" />
 
             {listContributors}
         </div>

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { AddContributor } from '../services/ContributorsServices';
+import {motion, AnimatePresence} from 'framer-motion'
 
 const AddContributorForm = ({onContributorAdded}) => {
 
@@ -20,8 +21,9 @@ const AddContributorForm = ({onContributorAdded}) => {
     }
 
     return (
-        <div className='bg-white p-4 rounded-md flex flex-col gap-2'>
-            <h1 className='font-semibold text-zinc-400 text-md'>Add Contributor Form</h1>
+        <motion.div className='bg-white p-4 rounded-sm flex flex-col gap-2 h-min'
+        >
+            <h1 className='font-semibold text-zinc-400 text-md text-center'>Add Contributor Form</h1>
             <hr className="border-t border-2 border-zinc-300 my-[5%]" />
             
             <input 
@@ -44,9 +46,9 @@ const AddContributorForm = ({onContributorAdded}) => {
             <hr className="border-t border-2 border-zinc-300 my-[5%]" />
 
             <button 
-            type='submit' className='rounded-4xl bg-red-600 py-4 mt-auto font-semibold text-white' 
+            type='submit' className='rounded-4xl bg-red-600 py-2 mt-auto font-semibold text-white cursor-pointer' 
             onClick={handleAddContributor}>Add Contributor</button>
-        </div>
+        </motion.div>
     )
 }
 
