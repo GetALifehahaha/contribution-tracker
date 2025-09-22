@@ -17,8 +17,11 @@ class UserSerializer(serializers.ModelSerializer):
 class ContributorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contributor
-        fields = ['id', 'first_name', 'last_name', 'leader']
-        extra_kwargs = {'leader': {'read_only': True}}
+        fields = ['id', 'first_name', 'last_name', 'leader', 'balance']
+        extra_kwargs = {
+            'leader': {'read_only': True},
+            'balance': {'read_only': True},
+            }
 
 
 class ContributionSerializer(serializers.ModelSerializer):

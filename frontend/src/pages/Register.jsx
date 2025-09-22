@@ -5,7 +5,7 @@ import FormDesign from '../components/FormDesign'
 const Register = () => {
   return (
     <div className='w-full h-[100vh] bg-zinc-300 flex justify-center items-center'>
-      <div className='p-4 bg-white rounded-3xl flex flex-row w-[70vw] h-[70vh]'>
+      <div className='p-4 bg-white rounded-3xl flex flex-row w-[70vw] h-[75vh]'>
         <FormDesign/>
         <Form route='/api/user/register/' method='register' />
       </div>
